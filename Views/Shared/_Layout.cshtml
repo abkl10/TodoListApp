@@ -6,6 +6,11 @@
     </div>
 }
 
+@{
+    var path = Context.Request.Path.Value?.ToLower();
+    bool hideNavbar = path == "/identity/account/login" || path == "/identity/account/register";
+}
+
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -25,6 +30,8 @@
 </head>
 <body>
     <header>
+        @if (!hideNavbar)
+{
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ToDoList</a>
@@ -52,6 +59,7 @@
                 </div>
             </div>
         </nav>
+        }
     </header>
     <div class="container">
         <main role="main" class="pb-3">
