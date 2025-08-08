@@ -14,8 +14,8 @@
     <thead>
         <tr>
             <th> Content </th>
-            <th></th>
-            <th></th>
+            <th>Edit</th>
+            <th>Delete</th>
 
 
         </tr>
@@ -31,9 +31,8 @@
                     <a class="btn btn-info" asp-action = "Edit" asp-route-id="@item.id">Edit</a>
                 </td>
                 <td>
-                                        <a class="btn btn-danger" asp-action = "Delete" asp-route-id="@item.id">Delete</a>
-
-                </td>
+                    <a class="btn btn-danger" asp-action = "Delete" asp-route-id="@item.id">Delete</a>
+               </td>
             </tr>
         }
     </tbody>
