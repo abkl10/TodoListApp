@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<ToDoList.Models.TodoList>
+@{
     ViewData["Title"] = "Index Page";
 }
 
@@ -20,7 +21,21 @@
         </tr>
     </thead>
     <tbody>
-        
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Content
+                </td>
+                <td>
+                    <a class="btn btn-info" asp-action = "Edit" asp-route-id="@item.id">Edit</a>
+                </td>
+                <td>
+                                        <a class="btn btn-danger" asp-action = "Delete" asp-route-id="@item.id">Delete</a>
+
+                </td>
+            </tr>
+        }
     </tbody>
   </table>
 
