@@ -1,1 +1,37 @@
-<h2> Home </h2>
+﻿@{
+    ViewData["Title"] = "Index Page";
+}
+
+<div class="container">
+    <div class="header">
+        <div id="date"></div>
+    </div>
+    <p>   
+         <a class="btn btn-success" asp-action="Create">Add a new ToDo</a>
+</p>
+  <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th> Content </th>
+            <th></th>
+            <th></th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+  </table>
+
+</div>
+
+@section scripts{
+    <script>
+        const dateElement = document.getElementById("date");
+        const options = {weekday : 'long', month: 'short' , day:'numeric'}; 
+        const today = new Date();
+
+        dateElement.innerHTML = today.toLocaleDateString("fr-FR", options);
+    </script>
+}
