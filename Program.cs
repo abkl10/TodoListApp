@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using TodoListApp.Data;
+using ToDoList.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

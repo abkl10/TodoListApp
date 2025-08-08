@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ToDoList.Models;
 
-namespace TodoListApp.Data
+namespace ToDoList.Data
 {
     public class TodoContext : DbContext
     {
@@ -9,6 +9,9 @@ namespace TodoListApp.Data
             : base(options)
         {
         }
+
+        public DbSet<TodoList> TodoLists { get; set; }
+
 
     }
 }
