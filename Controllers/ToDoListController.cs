@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ToDoList.Data;
@@ -11,17 +12,23 @@ namespace ToDoList.Controllers
     public class ToDoListController : Controller
     {
         private readonly TodoContext _context;
-        public ToDoListController(TodoContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public ToDoListController(TodoContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
 
         // GET: Todos
         public async Task<ActionResult> Index()
         {
             //gets all the todolists
-            var todoList = await _context.TodoLists.ToListAsync();
-
+            var userId = _userManager.GetUserId(User);
+            var todoList = await _context.TodoLists
+                .Where(t => t.UserId == userId)
+                .ToListAsync();
             return View(todoList);
         }
 
@@ -37,6 +44,7 @@ namespace ToDoList.Controllers
         {
             if (ModelState.IsValid)
             {
+                item.UserId = _userManager.GetUserId(User);
                 _context.Add(item);
                 await _context.SaveChangesAsync();
 
@@ -49,7 +57,12 @@ namespace ToDoList.Controllers
         //GET /Todo/edit/id
         public async Task<ActionResult> Edit(int id)
         {
-            TodoList item = await _context.TodoLists.FindAsync(id);
+            var userId = _userManager.GetUserId(User);
+
+            var item = await _context.TodoLists
+                .Where(t => t.UserId == userId && t.id == id)
+                .FirstOrDefaultAsync();
+
             if (item == null)
             {
                 return NotFound();
@@ -65,7 +78,19 @@ namespace ToDoList.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Update(item);
+                var userId = _userManager.GetUserId(User);
+
+                var existingItem = await _context.TodoLists
+                    .Where(t => t.UserId == userId && t.id == item.id)
+                    .FirstOrDefaultAsync();
+
+                if (existingItem == null)
+                {
+                    return NotFound();
+                }
+
+            
+                _context.Update(existingItem);
                 await _context.SaveChangesAsync();
 
                 TempData["Success"] = "Item has been updated";
@@ -76,10 +101,16 @@ namespace ToDoList.Controllers
             return View(item);
         }
 
+
         //GET /Todo/Delete
         public async Task<ActionResult> Delete(int id)
         {
-            TodoList item = await _context.TodoLists.FindAsync(id);
+            var userId = _userManager.GetUserId(User);
+
+            var item = await _context.TodoLists
+                .Where(t => t.UserId == userId && t.id == id)
+                .FirstOrDefaultAsync();
+                
             if (item == null)
             {
                 TempData["Error"] = "The item does not exist";
@@ -99,7 +130,12 @@ namespace ToDoList.Controllers
         [HttpPost]
         public async Task<ActionResult> ToggleComplete(int id)
         {
-            var item = await _context.TodoLists.FindAsync(id);
+            var userId = _userManager.GetUserId(User);
+
+            var item = await _context.TodoLists
+                .Where(t => t.UserId == userId && t.id == id)
+                .FirstOrDefaultAsync();
+
             if (item == null)
             {
                 return NotFound();

@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ToDoList.Data;
@@ -11,25 +12,41 @@ namespace ToDoList.Controllers;
 public class HomeController : Controller
 {
     private readonly TodoContext _context;
+    private readonly UserManager<IdentityUser> _userManager;
 
-    public HomeController(TodoContext context)
+
+    public HomeController(TodoContext context, UserManager<IdentityUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
+
     }
 
     public async Task<IActionResult> Index()
-    {
-        ViewBag.RecentTasks = await _context.TodoLists
-            .OrderByDescending(t => t.id)
-            .Take(3)
-            .ToListAsync();
+{
+    var userId = _userManager.GetUserId(User);
 
-        ViewBag.TotalTasks = await _context.TodoLists.CountAsync();
-        ViewBag.CompletedTasks = await _context.TodoLists.CountAsync(t => t.IsCompleted);
-        ViewBag.PendingTasks = await _context.TodoLists.CountAsync(t => !t.IsCompleted);
+    ViewBag.RecentTasks = await _context.TodoLists
+        .Where(t => t.UserId == userId)
+        .OrderByDescending(t => t.id)
+        .Take(3)
+        .ToListAsync();
 
-        return View();
-    }
+    ViewBag.TotalTasks = await _context.TodoLists
+        .Where(t => t.UserId == userId)
+        .CountAsync();
+
+    ViewBag.CompletedTasks = await _context.TodoLists
+        .Where(t => t.UserId == userId && t.IsCompleted)
+        .CountAsync();
+
+    ViewBag.PendingTasks = await _context.TodoLists
+        .Where(t => t.UserId == userId && !t.IsCompleted)
+        .CountAsync();
+
+    return View();
+}
+
 
     public IActionResult Privacy()
     {

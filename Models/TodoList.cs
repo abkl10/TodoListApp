@@ -8,8 +8,9 @@ public class TodoList
 
     [Required]
     public required string Content { get; set; }
-     public bool IsCompleted { get; set; } = false;
-        
+    public bool IsCompleted { get; set; } = false;
+
     public DateTime CreatedDate { get; set; } = DateTime.Now;
+    public string? UserId { get; set; }
     
 }

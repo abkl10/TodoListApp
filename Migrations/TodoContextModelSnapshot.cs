@@ -236,6 +236,9 @@ namespace ToDoList.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext");
+
                     b.HasKey("id");
 
                     b.ToTable("TodoLists");
