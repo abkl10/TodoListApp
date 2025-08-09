@@ -55,6 +55,18 @@ dotnet run
 5. Open your browser and navigate to https://localhost:5001 or the URL shown in the console.
 
 6. Usage
+MVC Web Application
 - Register a new user account.
 - Manage your personal task list: add, edit, delete, and mark tasks as completed.
 - View your dashboard with recent tasks and task statistics.
+
+RESTful API
+- Obtain a JWT token by authenticating with your user credentials (via API login endpoint).
+- Use the JWT token in the Authorization header with Bearer <token> to access the secure API endpoints.
+- API base URL: https://localhost:5001/api/ToDoListapi
+- Supported API operations:
+- GET /api/ToDoListapi — Get all your tasks
+- GET /api/ToDoListapi/{id} — Get a specific task by ID
+- POST /api/ToDoListapi — Create a new task
+- PUT /api/ToDoListapi/{id} — Update a task
+- DELETE /api/ToDoListapi/{id} — Delete a task
