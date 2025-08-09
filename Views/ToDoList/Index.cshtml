@@ -1,51 +1,63 @@
-﻿@model IEnumerable<ToDoList.Models.TodoList>
-@{
-    ViewData["Title"] = "Index Page";
-}
-
-<div class="container">
-    <div class="header">
-        <div id="date"></div>
+﻿<div class="tasks-container">
+    <div class="tasks-header">
+        <h1>@ViewData["Title"]</h1>
+        <div id="date" class="current-date"></div>
+        <a asp-action="Create" class="btn-primary">
+            <i class="fas fa-plus"></i> Add New Task
+        </a>
     </div>
-    <p>   
-         <a class="btn btn-success" asp-action="Create">Add a new ToDo</a>
-</p>
-  <table class="table table-bordered">
-    <thead>
-        <tr>
-            <th> Content </th>
-            <th>Edit</th>
-            <th>Delete</th>
 
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var item in Model)
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-error">
+            @TempData["Error"]
+        </div>
+    }
+
+    <div class="tasks-list">
+        @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @item.Content
-                </td>
-                <td>
-                    <a class="btn btn-info" asp-action = "Edit" asp-route-id="@item.id">Edit</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" asp-action = "Delete" asp-route-id="@item.id">Delete</a>
-               </td>
-            </tr>
+            <div class="task-item @(item.IsCompleted ? "completed" : "")">
+                <div class="task-main">
+                    <form asp-action="ToggleComplete" asp-route-id="@item.id" method="post" class="task-checkbox">
+                        <input type="checkbox" @(item.IsCompleted ? "checked" : "") 
+                               onchange="this.form.submit()" />
+                    </form>
+                    <div class="task-content">
+                        <span class="task-title">@item.Content</span>
+                        <span class="task-date">Added @item.CreatedDate.ToString("MMM dd, yyyy")</span>
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <a asp-action="Edit" asp-route-id="@item.id" class="btn-edit">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form asp-action="Delete" asp-route-id="@item.id" method="post" class="delete-form">
+                        <button type="submit" class="btn-delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
         }
-    </tbody>
-  </table>
-
+    </div>
 </div>
 
-@section scripts{
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
     <script>
         const dateElement = document.getElementById("date");
-        const options = {weekday : 'long', month: 'short' , day:'numeric'}; 
+        const options = {weekday: 'long', month: 'short', day: 'numeric'}; 
         const today = new Date();
-
         dateElement.innerHTML = today.toLocaleDateString("fr-FR", options);
     </script>
 }

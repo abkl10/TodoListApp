@@ -6,7 +6,7 @@ using ToDoList.Models;
 
 namespace ToDoList.Controllers
 {
-    
+
     [Authorize]
     public class ToDoListController : Controller
     {
@@ -92,6 +92,22 @@ namespace ToDoList.Controllers
                 TempData["Success"] = "The item has been deleted";
 
             }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ToggleComplete(int id)
+        {
+            var item = await _context.TodoLists.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            item.IsCompleted = !item.IsCompleted;
+            _context.Update(item);
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }

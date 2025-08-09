@@ -1,23 +1,11 @@
-﻿@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["Success"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
+﻿
 
 @{
     var path = Context.Request.Path.Value?.ToLower();
     bool hideNavbar = path == "/identity/account/login" || path == "/identity/account/register";
 }
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @TempData["Error"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +13,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ToDoList</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/tasks.css" />
+            <link rel="stylesheet" href="~/css/forms.css" />
+
+
     <link rel="stylesheet" href="~/ToDoList.styles.css" asp-append-version="true" />
 </head>
 <body>
