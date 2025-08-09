@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +8,10 @@ using ToDoList.Models;
 
 namespace ToDoList.Controllers.Api
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]  
+    [Authorize]  
     public class ToDoListapiController : ControllerBase
     {
         private readonly TodoContext _context;
@@ -25,9 +27,11 @@ namespace ToDoList.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> GetTasks()
         {
+
             var userId = _userManager.GetUserId(User);
+
             var tasks = await _context.TodoLists
-                .Where(t => t.UserId == userId)
+                .Where(t => t.UserId == userId) 
                 .OrderByDescending(t => t.CreatedDate)
                 .ToListAsync();
 
