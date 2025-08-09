@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,14 +23,25 @@ namespace ToDoList.Controllers
         }
 
         // GET: Todos
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int pageNumber = 1, int pageSize = 5)
         {
             //gets all the todolists
             var userId = _userManager.GetUserId(User);
-            var todoList = await _context.TodoLists
+            var todoList = _context.TodoLists
                 .Where(t => t.UserId == userId)
+                .OrderByDescending(t => t.CreatedDate);
+
+            int totalTasks = await todoList.CountAsync();
+
+            var tasks = await todoList
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
-            return View(todoList);
+
+            ViewBag.TotalPages = (int)Math.Ceiling(totalTasks / (double)pageSize);
+            ViewBag.CurrentPage = pageNumber;
+
+            return View(tasks);
         }
 
         // GET: Todos/Create
@@ -89,7 +101,7 @@ namespace ToDoList.Controllers
                     return NotFound();
                 }
 
-            
+
                 _context.Update(existingItem);
                 await _context.SaveChangesAsync();
 
@@ -110,7 +122,7 @@ namespace ToDoList.Controllers
             var item = await _context.TodoLists
                 .Where(t => t.UserId == userId && t.id == id)
                 .FirstOrDefaultAsync();
-                
+
             if (item == null)
             {
                 TempData["Error"] = "The item does not exist";
@@ -148,6 +160,25 @@ namespace ToDoList.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ExportCsv()
+        {
+            var userId = _userManager.GetUserId(User);
+            var tasks = await _context.TodoLists
+                .Where(t => t.UserId == userId)
+                .OrderByDescending(t => t.CreatedDate)
+                .ToListAsync();
+
+            var builder = new StringBuilder();
+            builder.AppendLine("Id,Content,IsCompleted,CreatedDate");
+
+            foreach (var task in tasks)
+            {
+                builder.AppendLine($"{task.id},\"{task.Content}\",{task.IsCompleted},{task.CreatedDate:yyyy-MM-dd},");
+            }
+
+            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "tasks.csv");
+        }
 
     }
 }

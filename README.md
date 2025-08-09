@@ -31,7 +31,7 @@ A simple ASP.NET Core MVC ToDoList application with user authentication and pers
 ### Setup
 
 1. Clone this repository:
-   ```bash
+```bash
    git clone <your-repo-url>
    cd ToDoList
    ```
