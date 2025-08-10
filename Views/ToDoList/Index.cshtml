@@ -1,7 +1,13 @@
-﻿<div class="tasks-container">
+﻿@model IEnumerable<ToDoList.Models.TodoList>
+
+<div class="tasks-container">
     <div class="tasks-header">
         <h1>@ViewData["Title"]</h1>
-        <div id="date" class="current-date"></div>
+        <div id="date" class="current-date">
+            <span class="date-day"></span>
+            <span class="date-month"></span>
+            <span class="date-weekday"></span>
+        </div>
         <a asp-action="Create" class="btn-primary">
             <i class="fas fa-plus"></i> Add New Task
         </a>
@@ -88,8 +94,22 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
         const dateElement = document.getElementById("date");
-        const options = {weekday: 'long', month: 'short', day: 'numeric'}; 
+        const dayElement = dateElement.querySelector('.date-day');
+        const monthElement = dateElement.querySelector('.date-month');
+        const weekdayElement = dateElement.querySelector('.date-weekday');
+        
         const today = new Date();
-        dateElement.innerHTML = today.toLocaleDateString("fr-FR", options);
+        const options = { 
+            weekday: 'long', 
+            month: 'short', 
+            day: 'numeric'
+        };
+        
+        const frenchDate = today.toLocaleDateString("fr-FR", options);
+        const [weekday, day, month] = frenchDate.split(' ');
+        
+        dayElement.textContent = day;
+        monthElement.textContent = month;
+        weekdayElement.textContent = weekday.charAt(0).toUpperCase() + weekday.slice(1);        
     </script>
 }

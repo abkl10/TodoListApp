@@ -55,6 +55,7 @@ dotnet run
 5. Open your browser and navigate to https://localhost:5001 or the URL shown in the console.
 
 6. Usage
+
 MVC Web Application
 - Register a new user account.
 - Manage your personal task list: add, edit, delete, and mark tasks as completed.
