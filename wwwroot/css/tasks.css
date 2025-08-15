@@ -364,3 +364,15 @@
     background-color: #f3e8ff;
     color: #7e22ce;
 }
+
+@media (max-width: 768px) {
+    .task-category-container {
+        margin: 0.5rem 0;
+        width: 100%;
+        order: 2;
+    }
+    
+    .task-category {
+        font-size: 0.7rem;
+    }
+}

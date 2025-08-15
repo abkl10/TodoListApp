@@ -85,7 +85,7 @@ nav.navbar {
     }
 
     /* Responsive adjustments */
-    @@media (max-width: 991.98px) {
+    @media (max-width: 991.98px) {
         .navbar-collapse {
             padding-top: 1rem;
         }

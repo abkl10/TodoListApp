@@ -101,7 +101,7 @@ namespace ToDoList.Controllers
                     return NotFound();
                 }
 
-
+                existingItem.Category = item.Category;
                 _context.Update(existingItem);
                 await _context.SaveChangesAsync();
 

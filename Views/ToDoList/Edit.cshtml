@@ -13,7 +13,17 @@
             <label asp-for="Content" class="form-label"></label>
             <input asp-for="Content" class="form-control" />
             <span asp-validation-for="Content" class="text-danger"></span>
+
+            <label asp-for="Category" class="control-label"></label>
+            <select asp-for="Category" class="form-control">
+                <option value="">-- Select Category --</option>
+                <option>Work</option>
+                <option>Study</option>
+                <option>Personal</option>
+                <option>Urgent</option>
+            </select>
         </div>
+        
         
         <div class="form-actions">
             <button type="submit" class="btn-primary">Save Changes</button>
