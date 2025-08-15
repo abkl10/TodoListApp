@@ -200,5 +200,24 @@ namespace ToDoList.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("api/todo/calendar")]
+        public async Task<IActionResult> GetCalendarTasks()
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var tasks = await _context.TodoLists
+                .Where(t => t.UserId == userId)
+                .Select(t => new
+                {
+                    id = t.id,
+                    title = t.Content,
+                    start = t.CreatedDate.ToString("yyyy-MM-dd")
+                })
+                .ToListAsync();
+
+            return Json(tasks);
+        }
+
     }
 }
