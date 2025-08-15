@@ -194,5 +194,11 @@ namespace ToDoList.Controllers
             return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "tasks.csv");
         }
 
+        [HttpGet]
+        public IActionResult Calendar()
+        {
+            return View();
+        }
+
     }
 }
