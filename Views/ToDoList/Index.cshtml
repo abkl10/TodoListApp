@@ -46,8 +46,8 @@
                         <span class="task-date">Added @item.CreatedDate.ToString("MMM dd, yyyy")</span>
                     </div>
                 </div>
-                <div>
-                    <span class="task-category">
+                <div class="task-category-container">
+                    <span class="task-category @(item.Category?.ToLower().Replace(" ","-"))">
                         @item.Category
                     </span>
                 </div>
