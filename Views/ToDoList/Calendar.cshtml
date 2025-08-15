@@ -4,3 +4,31 @@
 
 <h2 class="mb-3">📆 Calendar </h2>
 <div id="calendar"></div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: '/api/todo/calendar', 
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek'
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+}
+
+<style>
+    #calendar {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+</style>
