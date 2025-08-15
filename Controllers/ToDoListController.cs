@@ -23,17 +23,31 @@ namespace ToDoList.Controllers
         }
 
         // GET: Todos
-        public async Task<ActionResult> Index(int pageNumber = 1, int pageSize = 5)
+        public async Task<ActionResult> Index(string categoryFilter, int pageNumber = 1, int pageSize = 5)
         {
-            //gets all the todolists
             var userId = _userManager.GetUserId(User);
             var todoList = _context.TodoLists
+                .Where(t => t.UserId == userId);
+
+            if (!string.IsNullOrEmpty(categoryFilter))
+            {
+                todoList = todoList.Where(t => t.Category == categoryFilter);
+            }
+
+            var categories = await _context.TodoLists
                 .Where(t => t.UserId == userId)
-                .OrderByDescending(t => t.CreatedDate);
+                .Select(t => t.Category)
+                .Where(c => c != null)
+                .Distinct()
+                .ToListAsync();
+
+            ViewBag.Categories = categories;
+            ViewBag.CurrentCategory = categoryFilter;
 
             int totalTasks = await todoList.CountAsync();
 
             var tasks = await todoList
+                .OrderByDescending(t => t.CreatedDate)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();

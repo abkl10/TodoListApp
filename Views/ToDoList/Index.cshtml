@@ -33,6 +33,29 @@
             <i class="fas fa-file-csv"></i> Export to CSV
         </a>
     </div>
+    @if (ViewBag.Categories != null)
+{
+    <form asp-action="Index" method="get" class="mb-3">
+        <div class="form-group">
+            <label for="categoryFilter">Filter by Category</label>
+            <select name="categoryFilter" class="form-control" onchange="this.form.submit()">
+                <option value="">-- All Categories --</option>
+                @foreach (var category in ViewBag.Categories as List<string>)
+{
+    if (category == (ViewBag.CurrentCategory as string))
+    {
+        <option value="@category" selected>@category</option>
+    }
+    else
+    {
+        <option value="@category">@category</option>
+    }
+}
+
+            </select>
+        </div>
+    </form>
+}
         @foreach (var item in Model)
         {
             <div class="task-item @(item.IsCompleted ? "completed" : "")">
@@ -46,6 +69,7 @@
                         <span class="task-date">Added @item.CreatedDate.ToString("MMM dd, yyyy")</span>
                     </div>
                 </div>
+
                 <div class="task-category-container">
                     <span class="task-category @(item.Category?.ToLower().Replace(" ","-"))">
                         @item.Category
