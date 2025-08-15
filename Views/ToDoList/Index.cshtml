@@ -46,6 +46,11 @@
                         <span class="task-date">Added @item.CreatedDate.ToString("MMM dd, yyyy")</span>
                     </div>
                 </div>
+                <div>
+                    <span class="task-category">
+                        @item.Category
+                    </span>
+                </div>
                 <div class="task-actions">
                     <a asp-action="Edit" asp-route-id="@item.id" class="btn-edit">
                         <i class="fas fa-edit"></i>
