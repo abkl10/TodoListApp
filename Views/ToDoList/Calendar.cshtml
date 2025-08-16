@@ -2,33 +2,67 @@
     ViewData["Title"] = "Calendar";
 }
 
-<h2 class="mb-3">📆 Calendar </h2>
-<div id="calendar"></div>
+<div class="calendar-container">
+    <div class="calendar-header">
+        <h2><i class="fas fa-calendar-alt"></i> Task Calendar</h2>
+        <div class="calendar-actions">
+            <button id="export-calendar" class="btn-export">
+                <i class="fas fa-file-export"></i> Export
+            </button>
+        </div>
+    </div>
+    <div id="calendar"></div>
+</div>
+
 
 @section Scripts {
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
-
+            
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                events: '/api/todo/calendar', 
+                events: '/api/todo/calendar',
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek'
+                    right: 'dayGridMonth,timeGridWeek,listWeek'
+                },
+                eventClassNames: function(arg) {
+                    if (arg.event.extendedProps.category) {
+                        return ['fc-event-' + arg.event.extendedProps.category.toLowerCase()];
+                    }
+                    return [];
+                },
+                eventContent: function(arg) {
+                    let icon = '';
+                    switch(arg.event.extendedProps.category?.toLowerCase()) {
+                        case 'work': icon = '💼'; break;
+                        case 'personal': icon = '🏠'; break;
+                        case 'shopping': icon = '🛒'; break;
+                        case 'urgent': icon = '⚠️'; break;
+                        case 'study': icon = '📚'; break;
+                        default: icon = '✓';
+                    }
+                    
+                    return {
+                        html: `<div class="fc-event-content">
+                            <span class="fc-event-icon">${icon}</span>
+                            <span class="fc-event-title">${arg.event.title}</span>
+                        </div>`
+                    };
                 }
             });
 
             calendar.render();
+
+            document.getElementById('export-calendar').addEventListener('click', function() {
+                calendar.exportToPdf({
+                    landscape: true,
+                    scale: 1,
+                    fileName: 'TodoList-Calendar.pdf'
+                });
+            });
         });
     </script>
 }
-
-<style>
-    #calendar {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-</style>

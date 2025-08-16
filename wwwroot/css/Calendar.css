@@ -1,0 +1,152 @@
+.calendar-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-header h2 {
+            color: #2c3e50;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .calendar-header i {
+            color: #3a7bd5;
+        }
+
+        #calendar {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .fc-header-toolbar {
+            margin-bottom: 1em !important;
+            padding: 0.5rem;
+            background-color: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .fc-button {
+            background-color: #f0f4f8 !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #4a5568 !important;
+            text-transform: capitalize !important;
+            font-weight: 500 !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .fc-button:hover {
+            background-color: #e1e8f0 !important;
+        }
+
+        .fc-button-primary:not(:disabled).fc-button-active {
+            background-color: #3a7bd5 !important;
+            border-color: #3a7bd5 !important;
+            color: white !important;
+        }
+
+        .fc-button-primary:disabled {
+            opacity: 0.5 !important;
+        }
+
+        .fc-today-button {
+            background-color: #3a7bd5 !important;
+            border-color: #3a7bd5 !important;
+            color: white !important;
+        }
+
+        .fc-daygrid-day-number {
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .fc-day-today {
+            background-color: #f0f7ff !important;
+        }
+
+        .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+            color: #3a7bd5;
+            font-weight: bold;
+        }
+
+        .fc-event {
+            border-radius: 4px !important;
+            border: none !important;
+            padding: 2px 4px !important;
+            font-size: 0.85rem !important;
+        }
+
+        .fc-event-title {
+            font-weight: 500 !important;
+        }
+
+        .fc-event-work {
+            background-color: #ffedd5 !important;
+            color: #9a3412 !important;
+        }
+
+        .fc-event-personal {
+            background-color: #e0f2fe !important;
+            color: #0369a1 !important;
+        }
+
+        .fc-event-shopping {
+            background-color: #dcfce7 !important;
+            color: #166534 !important;
+        }
+
+        .fc-event-urgent {
+            background-color: #fee2e2 !important;
+            color: #b91c1c !important;
+        }
+
+        .fc-event-study {
+            background-color: #f3e8ff !important;
+            color: #7e22ce !important;
+        }
+
+        .btn-export {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #f0f4f8;
+            color: #3a7bd5;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-export:hover {
+            background-color: #e1e8f0;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .fc-toolbar-title {
+                font-size: 1.2rem !important;
+            }
+
+            .fc-button {
+                padding: 0.3rem 0.5rem !important;
+                font-size: 0.8rem !important;
+            }
+        }

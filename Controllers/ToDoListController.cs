@@ -199,7 +199,7 @@ namespace ToDoList.Controllers
         {
             return View();
         }
-
+        
         [HttpGet]
         [Route("api/todo/calendar")]
         public async Task<IActionResult> GetCalendarTasks()
@@ -212,7 +212,14 @@ namespace ToDoList.Controllers
                 {
                     id = t.id,
                     title = t.Content,
-                    start = t.CreatedDate.ToString("yyyy-MM-dd")
+                    start = t.CreatedDate.ToString("yyyy-MM-dd"),
+                    end = t.CreatedDate.ToString("yyyy-MM-dd"), 
+                    allDay = true, 
+                    extendedProps = new 
+                    {
+                        category = t.Category,
+                        completed = t.IsCompleted
+                    }
                 })
                 .ToListAsync();
 
