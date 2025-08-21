@@ -49,7 +49,12 @@
                     <div class="task-info">
                         <input type="checkbox" @(task.IsCompleted ? "checked" : "") disabled />
                         <span class="task-title @(task.IsCompleted ? "completed" : "")">@task.Content</span>
+                        <span class="task-category @(task.Category?.ToLower().Replace(" ","-"))">
+                        @task.Category
+                    </span>
                     </div>
+                    
+                
                     <span class="task-date">@task.CreatedDate.ToString("MMM dd")</span>
                 </div>
             }
