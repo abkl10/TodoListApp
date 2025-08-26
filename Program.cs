@@ -12,7 +12,8 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<TodoContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 43))));
+
 
 var jwtSecret = builder.Configuration["Jwt:Secret"];
 
@@ -78,6 +79,31 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<TodoContext>();
+
+    const int maxRetries = 10;
+    int retries = 0;
+
+    while (true)
+    {
+        try
+        {
+            context.Database.Migrate(); 
+            Console.WriteLine("Database migration succeeded.");
+            break;
+        }
+        catch (Exception ex)
+        {
+            retries++;
+            Console.WriteLine($"Could not connect to DB (attempt {retries}/{maxRetries}): {ex.Message}");
+            if (retries >= maxRetries) throw;
+            Thread.Sleep(3000); 
+        }
+    }
+}
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
