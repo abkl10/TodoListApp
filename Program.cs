@@ -12,7 +12,13 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<TodoContext>(options =>
-    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 43))));
+{
+    options.UseMySql(
+        connectionString,
+        new MySqlServerVersion(new Version(8, 0, 36)),
+        mySqlOptions => mySqlOptions.EnableRetryOnFailure()
+    );
+});
 
 
 var jwtSecret = builder.Configuration["Jwt:Secret"];
@@ -117,4 +123,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+
+app.Urls.Add("http://0.0.0.0:8080");
+
 app.Run();
