@@ -6,9 +6,36 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<h2>Admin Dashboard</h2>
-<p><strong>Total Registered Users:</strong> @ViewBag.UserCount</p>
-<p><strong>Total Tasks:</strong> @ViewBag.TasksCount</p>
+<div class="admin-dashboard">
+    <div class="dashboard-header">
+        <h1><i class="fas fa-shield-alt"></i> Admin Dashboard</h1>
+        <p class="dashboard-subtitle">Manage users and monitor system activity</p>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+                <h3>@ViewBag.UserCount</h3>
+                <p>Total Users</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-tasks"></i>
+            </div>
+            <div class="stat-content">
+                <h3>@ViewBag.TasksCount</h3>
+                <p>Total Tasks</p>
+            </div>
+        </div>
+</div>
+
+    
 
 <div class="users-table-container">
 <table class="users-table">
