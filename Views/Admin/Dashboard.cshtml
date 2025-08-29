@@ -1,0 +1,38 @@
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@model List<IdentityUser>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+<p><strong>Total Registered Users:</strong> @ViewBag.UserCount</p>
+<p><strong>Total Tasks:</strong> @ViewBag.TasksCount</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Current Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    @{
+                        var rolesTask = Context.RequestServices
+                            .GetService<UserManager<IdentityUser>>()
+                            .GetRolesAsync(user);
+                        var roles = await rolesTask;
+                        @(roles.FirstOrDefault() != null ? @roles.FirstOrDefault() : "None");
+                    }
+                </td>
+               
+            </tr>
+        }
+    </tbody>
+</table>
