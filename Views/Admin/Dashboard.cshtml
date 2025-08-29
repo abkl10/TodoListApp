@@ -10,7 +10,8 @@
 <p><strong>Total Registered Users:</strong> @ViewBag.UserCount</p>
 <p><strong>Total Tasks:</strong> @ViewBag.TasksCount</p>
 
-<table class="table table-bordered">
+<div class="users-table-container">
+<table class="users-table">
     <thead>
         <tr>
             <th>Email</th>
@@ -23,7 +24,8 @@
         @foreach (var user in Model)
         {
             <tr>
-                <td>@user.Email
+                <td class="user-email">
+                    <i class="fas fa-envelope"></i>@user.Email
                  @if (user.Email == User.Identity?.Name)
                     {
                         <strong style="color: red;">(You)</strong>
@@ -57,3 +59,4 @@
         }
     </tbody>
 </table>
+</div>
