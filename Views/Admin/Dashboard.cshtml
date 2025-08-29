@@ -22,7 +22,11 @@
         @foreach (var user in Model)
         {
             <tr>
-                <td>@user.Email</td>
+                <td>@user.Email
+                 @if (user.Email == User.Identity?.Name)
+                    {
+                        <strong style="color: green;">(You)</strong>
+                    }</td>
                 <td>
                     @{
                         var rolesTask = Context.RequestServices
