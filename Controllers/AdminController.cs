@@ -27,5 +27,20 @@ public class AdminController : Controller
         return View(users);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> SetRole(string userId, string role)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user != null)
+        {
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            await _userManager.RemoveFromRolesAsync(user, currentRoles);
+
+            if (role == "Admin" || role == "User")
+                await _userManager.AddToRoleAsync(user, role);
+        }
+
+        return RedirectToAction("Dashboard");
+    }
     
 }
