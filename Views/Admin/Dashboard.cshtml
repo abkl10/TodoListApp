@@ -32,6 +32,7 @@
                         @(roles.FirstOrDefault() != null ? @roles.FirstOrDefault() : "None");
                     }
                 </td>
+                <td>
                    <form method="post" asp-controller="Admin" asp-action="SetRole">
                         <input type="hidden" name="userId" value="@user.Id" />
                         <select name="role" class="form-control d-inline w-auto">
