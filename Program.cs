@@ -74,6 +74,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
     .AddDefaultUI();
     
 
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -110,7 +111,39 @@ using (var scope = app.Services.CreateScope())
             Thread.Sleep(3000); 
         }
     }
+    
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+
+    string[] roleNames = { "Admin", "User" };
+
+    foreach (var roleName in roleNames)
+    {
+        var roleExist = await roleManager.RoleExistsAsync(roleName);
+        if (!roleExist)
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+    }
+
+var adminEmail = "admin@gmail.com";
+var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+if (adminUser == null)
+{
+    var newAdmin = new IdentityUser
+    {
+        UserName = adminEmail,
+        Email = adminEmail
+    };
+    var result = await userManager.CreateAsync(newAdmin, "Admin@123");
+    if (result.Succeeded)
+        await userManager.AddToRoleAsync(newAdmin, "Admin");
 }
+
+}
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
