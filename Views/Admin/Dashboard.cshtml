@@ -15,6 +15,7 @@
         <tr>
             <th>Email</th>
             <th>Current Role</th>
+            <th>Set Role</th>
         </tr>
     </thead>
     <tbody>
@@ -31,7 +32,15 @@
                         @(roles.FirstOrDefault() != null ? @roles.FirstOrDefault() : "None");
                     }
                 </td>
-               
+                   <form method="post" asp-controller="Admin" asp-action="SetRole">
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <select name="role" class="form-control d-inline w-auto">
+                            <option value="User">User</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm" type="submit">Change</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
