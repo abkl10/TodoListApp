@@ -27,8 +27,11 @@ namespace ToDoList.Controllers
         {
             var userId = _userManager.GetUserId(User);
             bool isAdmin = User.IsInRole("Admin") || User.IsInRole("Manager");
-            var todoList = _context.TodoLists
-                .Where(t => t.UserId == userId);
+            var todoList = _context.TodoLists.AsQueryable();
+            if (!isAdmin){
+                todoList = _context.TodoLists
+                                   .Where(t => t.UserId == userId);            
+            }
 
             if (!string.IsNullOrEmpty(categoryFilter))
             {
