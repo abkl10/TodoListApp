@@ -33,7 +33,27 @@
                 <p>Total Tasks</p>
             </div>
         </div>
-</div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="stat-content">
+                <h3>@(Model.Count(u => UserManager.IsInRoleAsync(u, "Admin").Result))</h3>
+                <p>Admin Users</p>
+            </div>
+        </div> 
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="stat-content">
+                <h3>@(ViewBag.TasksCount > 0 ? (ViewBag.TasksCount / ViewBag.UserCount).ToString("0.0") : "0")</h3>
+                <p>Avg Tasks/User</p>
+            </div>
+        </div>
+    </div>
 
     
 
