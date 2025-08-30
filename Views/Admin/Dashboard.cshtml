@@ -51,6 +51,8 @@
     <tbody>
         @foreach (var user in Model)
         {
+            var userRoles = await UserManager.GetRolesAsync(user);
+            var currentRole = userRoles.FirstOrDefault() ?? "User";
             <tr>
                 <td>
                     <i class="fas fa-user"></i>@user.UserName
@@ -72,25 +74,20 @@
                          </span>
                 </td>
                 <td>
-                    @{
-                        var rolesTask = Context.RequestServices
-                            .GetService<UserManager<IdentityUser>>()
-                            .GetRolesAsync(user);
-                        var roles = await rolesTask;
-                        @(roles.FirstOrDefault() != null ? @roles.FirstOrDefault() : "None");
-                    }
-                </td>
-                <td>
-                   <form method="post" asp-controller="Admin" asp-action="SetRole">
-                        <input type="hidden" name="userId" value="@user.Id" />
-                        <select name="role" class="form-control d-inline w-auto">
-                            <option value="User">User</option>
-                            <option value="Admin">Admin</option>
-                        </select>
-                        <button class="btn btn-primary btn-sm" type="submit">Change</button>
-                    </form>
-                </td>
-            </tr>
+                                <span class="role-badge @currentRole.ToLower()">
+                                    @currentRole
+                                </span>
+                            </td>
+                            <td class="user-actions">
+                                <form asp-action="SetRole" method="post" class="role-form">
+                                    <input type="hidden" name="userId" value="@user.Id" />
+                                    <select name="role" class="role-select" onchange="this.form.submit()">
+                                        <option value="User" selected="@(currentRole == "User")">User</option>
+                                        <option value="Admin" selected="@(currentRole == "Admin")">Admin</option>
+                                    </select>
+                                </form>
+                            </td>
+                        </tr>
         }
     </tbody>
 </table>
