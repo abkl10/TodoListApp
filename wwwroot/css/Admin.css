@@ -41,7 +41,7 @@
             font-weight: 500;
         }
 
-        admin-dashboard {
+        .admin-dashboard {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
@@ -107,6 +107,22 @@
         .stat-content p {
             color: #718096;
             margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .users-table {
+                font-size: 0.9rem;
+            }
+
+            .users-table th,
+            .users-table td {
+                padding: 0.75rem;
+            }
+
         }
 
         
