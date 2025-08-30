@@ -82,8 +82,8 @@
                     <div>
                          @if (ViewBag.IsAdmin == true)
                         {
-                            <span class="task-user">
-                                By: @(item.User != null ? item.User.Email : "Unknown")
+                            <span class="task-date">
+                                By: @(item.User != null ? item.User?.UserName : "Unknown")
                             </span>
                         }
                     </div>
