@@ -41,6 +41,7 @@
 <table class="users-table">
     <thead>
         <tr>
+            <th>Username</th>
             <th>Email</th>
             <th>Email Confirmed</th>
             <th>Current Role</th>
@@ -51,6 +52,13 @@
         @foreach (var user in Model)
         {
             <tr>
+                <td>
+                    <i class="fas fa-user"></i>@user.UserName
+                 @if (user.UserName == User.Identity?.Name)
+                    {
+                        <strong style="color: red;">(You)</strong>
+                    }
+                </td>
                 <td class="user-email">
                     <i class="fas fa-envelope"></i>@user.Email
                  @if (user.Email == User.Identity?.Name)
