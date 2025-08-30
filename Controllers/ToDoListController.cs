@@ -26,6 +26,7 @@ namespace ToDoList.Controllers
         public async Task<ActionResult> Index(string categoryFilter, int pageNumber = 1, int pageSize = 5)
         {
             var userId = _userManager.GetUserId(User);
+            bool isAdmin = User.IsInRole("Admin") || User.IsInRole("Manager");
             var todoList = _context.TodoLists
                 .Where(t => t.UserId == userId);
 
@@ -54,6 +55,7 @@ namespace ToDoList.Controllers
 
             ViewBag.TotalPages = (int)Math.Ceiling(totalTasks / (double)pageSize);
             ViewBag.CurrentPage = pageNumber;
+            ViewBag.IsAdmin = isAdmin;
 
             return View(tasks);
         }
