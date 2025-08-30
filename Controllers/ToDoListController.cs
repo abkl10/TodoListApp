@@ -27,7 +27,8 @@ namespace ToDoList.Controllers
         {
             var userId = _userManager.GetUserId(User);
             bool isAdmin = User.IsInRole("Admin") || User.IsInRole("Manager");
-            var todoList = _context.TodoLists.AsQueryable();
+            var todoList = _context.TodoLists.Include(t => t.User)
+                                             .AsQueryable();
             if (!isAdmin){
                 todoList = _context.TodoLists
                                    .Where(t => t.UserId == userId);            
