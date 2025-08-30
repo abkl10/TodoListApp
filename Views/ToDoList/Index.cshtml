@@ -9,7 +9,7 @@
             <span class="date-weekday"></span>
         </div>
         @if (!(ViewBag.IsAdmin as bool? ?? false))
-    {
+        {
         <a asp-action="Create" class="btn-primary">
             <i class="fas fa-plus"></i> Add New Task
         </a>
@@ -78,6 +78,14 @@
                     <div class="task-content">
                         <span class="task-title">@item.Content</span>
                         <span class="task-date">Added @item.CreatedDate.ToString("MMM dd, yyyy")</span>
+                    </div>
+                    <div>
+                         @if (ViewBag.IsAdmin == true)
+                        {
+                            <span class="task-user">
+                                By: @(item.User != null ? item.User.Email : "Unknown")
+                            </span>
+                        }
                     </div>
                 </div>
 
