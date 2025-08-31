@@ -46,11 +46,13 @@
                     }
                     
                     return {
-                        html: `<div class="fc-event-content">
-                               <span class="fc-event-title">${arg.event.extendedProps.user}</span>
-
+                        html: `<div class="fc-event-content">                              
                             <span class="fc-event-icon">${icon}</span>
                             <span class="fc-event-title">${arg.event.title}</span>
+                            @if (User.IsInRole("Admin"))
+                            {
+                            <span class="fc-event-title">${arg.event.extendedProps.user}</span>
+                            }
 
                         </div>`
                     };
