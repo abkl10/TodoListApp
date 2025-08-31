@@ -37,12 +37,27 @@
     <div class="quick-actions">
         <h2>Quick Actions</h2>
         <div class="action-buttons">
+            @if (isAdmin)
+            {
+                <a asp-controller="ToDoList" asp-action="Index" class="action-btn secondary">
+                    <i class="fas fa-list"></i> View All Tasks
+                </a>
+                <a asp-controller="Admin" asp-action="Dashboard" class="action-btn secondary">
+                    <i class="fas fa-users-cog"></i> Manage Users
+                </a>
+                <a asp-controller="ToDoList" asp-action="Calendar" class="action-btn secondary">
+                    <i class="fas fa-calendar"></i> View Calendar
+                </a>
+            }
+            else
+            {
             <a asp-controller="ToDoList" asp-action="Create" class="action-btn primary">
                 <i class="fas fa-plus"></i> Add New Task
             </a>
             <a asp-controller="ToDoList" asp-action="Index" class="action-btn secondary">
                 <i class="fas fa-list"></i> View All Tasks
             </a>
+            }
         </div>
     </div>
 
