@@ -26,8 +26,11 @@ public class HomeController : Controller
 {
     var userId = _userManager.GetUserId(User);
 
-    ViewBag.RecentTasks = await _context.TodoLists
+    ViewBag.RecentTasks = !User.IsInRole("Admin") ? await _context.TodoLists
         .Where(t => t.UserId == userId)
+        .OrderByDescending(t => t.id)
+        .Take(3)
+        .ToListAsync() : await _context.TodoLists
         .OrderByDescending(t => t.id)
         .Take(3)
         .ToListAsync();
