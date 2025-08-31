@@ -71,10 +71,13 @@
         {
             <div class="task-item @(item.IsCompleted ? "completed" : "")">
                 <div class="task-main">
+                    @if (!ViewBag.IsAdmin == true)
+                    {
                     <form asp-action="ToggleComplete" asp-route-id="@item.id" method="post" class="task-checkbox">
                         <input type="checkbox" @(item.IsCompleted ? "checked" : "") 
                                onchange="this.form.submit()" />
                     </form>
+                    }
                     <div class="task-content">
                         <span class="task-title">@item.Content</span>
                         <span class="task-date">Added @item.CreatedDate.ToString("MMM dd, yyyy")</span>
