@@ -1,13 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Dashboard";
+    var isAdmin = User.IsInRole("Admin");
 }
 
 <div class="dashboard-container">
-    <!-- Welcome Section with User Profile -->
     <div class="welcome-card">
         <div class="user-profile">
             <div class="avatar">
-                <span>👤</span>
+                <span>@(isAdmin ? "👑" : "👤")</span>
             </div>
             <div class="user-info">
                 <h1>Welcome back, @User.Identity?.Name!</h1>
