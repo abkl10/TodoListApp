@@ -40,7 +40,7 @@ namespace ToDoList.Controllers
             }
 
             var categories = await _context.TodoLists
-                .Where(t => t.UserId == userId)
+                .Where(t => t.Category != null)
                 .Select(t => t.Category)
                 .Where(c => c != null)
                 .Distinct()
