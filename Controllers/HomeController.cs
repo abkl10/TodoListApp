@@ -50,6 +50,7 @@ public class HomeController : Controller
         .CountAsync() : await _context.TodoLists
         .Where(t => !t.IsCompleted)
         .CountAsync();
+        
 
     var users = await _userManager.Users.ToListAsync();
         ViewBag.UserCount = users.Count;    

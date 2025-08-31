@@ -92,6 +92,30 @@
         </div>
     </div>
 
+@if (isAdmin)
+    {
+        <div class="admin-insights">
+            <h2>System Insights</h2>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Task Distribution</h3>
+                    <p>@ViewBag.CompletedTasks out of @ViewBag.TotalTasks tasks completed</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: @(ViewBag.TotalTasks > 0 ? (ViewBag.CompletedTasks * 100 / ViewBag.TotalTasks) : 0)%"></div>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Productivity Rate</h3>
+                    <p>@(ViewBag.TotalTasks > 0 ? (ViewBag.CompletedTasks * 100 / ViewBag.TotalTasks) : 0)% completion rate</p>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
     <!-- Productivity Tips -->
     <div class="productivity-tips">
         <h2>Productivity Tip of the Day</h2>
@@ -103,7 +127,9 @@
             </div>
         </div>
     </div>
+    }
 </div>
+
 
     <style>
         /* Main container */
