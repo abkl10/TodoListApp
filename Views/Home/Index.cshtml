@@ -77,6 +77,12 @@
                         <span class="task-category @(task.Category?.ToLower().Replace(" ","-"))">
                         @task.Category
                     </span>
+                        @if (isAdmin)
+                            {
+                                <span class="task-date">
+                                    By: @(task.User != null ? task.User?.UserName : "Unknown")
+                                </span>
+                            }
                     </div>
                     
                 
