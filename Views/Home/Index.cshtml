@@ -12,9 +12,18 @@
             <div class="user-info">
                 <h1>Welcome back, @User.Identity?.Name!</h1>
                 <p class="user-stats">
+                    @if (isAdmin)
+                    {
+                        <span class="stat"><strong>@ViewBag.TotalTasks</strong> total tasks</span>
+                        <span class="stat"><strong>@ViewBag.CompletedTasks</strong> completed</span>
+                        <span class="stat"><strong>@ViewBag.PendingTasks</strong> pending</span>
+                    }
+                    else
+                    {
                     <span class="stat"><strong>@ViewBag.TotalTasks</strong> tasks</span>
                     <span class="stat"><strong>@ViewBag.CompletedTasks</strong> completed</span>
                     <span class="stat"><strong>@ViewBag.PendingTasks</strong> pending</span>
+                    }
                 </p>
             </div>
         </div>
