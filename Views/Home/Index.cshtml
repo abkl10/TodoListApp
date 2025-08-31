@@ -64,7 +64,7 @@
     <!-- Recent Tasks Preview -->
     <div class="recent-tasks">
         <div class="section-header">
-            <h2>Your Recent Tasks</h2>
+            <h2>@(isAdmin ? "Recent System Tasks" : "Your Recent Tasks")</h2>
             <a asp-controller="ToDoList" asp-action="Index" class="see-all">See All →</a>
         </div>
         <div class="tasks-list">
