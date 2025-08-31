@@ -48,6 +48,9 @@ public class HomeController : Controller
         .Where(t => !t.IsCompleted)
         .CountAsync();
 
+    var users = await _userManager.Users.ToListAsync();
+        ViewBag.UserCount = users.Count;    
+
     
 
     return View();
