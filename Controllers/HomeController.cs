@@ -32,17 +32,23 @@ public class HomeController : Controller
         .Take(3)
         .ToListAsync();
 
-    ViewBag.TotalTasks = await _context.TodoLists
+    ViewBag.TotalTasks = !User.IsInRole("Admin") ? await _context.TodoLists
         .Where(t => t.UserId == userId)
-        .CountAsync();
+        .CountAsync() : await _context.TodoLists.CountAsync();
 
-    ViewBag.CompletedTasks = await _context.TodoLists
+    ViewBag.CompletedTasks = !User.IsInRole("Admin") ? await _context.TodoLists
         .Where(t => t.UserId == userId && t.IsCompleted)
+        .CountAsync() : await _context.TodoLists
+        .Where(t => t.IsCompleted)
         .CountAsync();
 
-    ViewBag.PendingTasks = await _context.TodoLists
+    ViewBag.PendingTasks = !User.IsInRole("Admin") ? await _context.TodoLists
         .Where(t => t.UserId == userId && !t.IsCompleted)
+        .CountAsync() : await _context.TodoLists
+        .Where(t => !t.IsCompleted)
         .CountAsync();
+
+    
 
     return View();
 }
