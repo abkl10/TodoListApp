@@ -221,6 +221,7 @@ namespace ToDoList.Controllers
             }
 
             var tasks = await taskQuery
+                .Include(t => t.User)
                 .Select(t => new
                 {
                     id = t.id,
@@ -230,6 +231,7 @@ namespace ToDoList.Controllers
                     allDay = true,
                     extendedProps = new
                     {
+                        user = t.User != null ? t.User.UserName : string.Empty,
                         category = t.Category,
                         completed = t.IsCompleted
                     }
