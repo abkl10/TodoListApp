@@ -211,17 +211,24 @@ namespace ToDoList.Controllers
         public async Task<IActionResult> GetCalendarTasks()
         {
             var userId = _userManager.GetUserId(User);
+            bool isAdmin = User.IsInRole("Admin");
 
-            var tasks = await _context.TodoLists
-                .Where(t => t.UserId == userId)
+            var taskQuery = _context.TodoLists.AsQueryable();
+
+            if (!isAdmin)
+            {
+                taskQuery = taskQuery.Where(t => t.UserId == userId);
+            }
+
+            var tasks = await taskQuery
                 .Select(t => new
                 {
                     id = t.id,
                     title = t.Content,
                     start = t.CreatedDate.ToString("yyyy-MM-dd"),
-                    end = t.CreatedDate.ToString("yyyy-MM-dd"), 
-                    allDay = true, 
-                    extendedProps = new 
+                    end = t.CreatedDate.ToString("yyyy-MM-dd"),
+                    allDay = true,
+                    extendedProps = new
                     {
                         category = t.Category,
                         completed = t.IsCompleted
