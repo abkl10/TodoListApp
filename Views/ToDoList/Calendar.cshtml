@@ -47,8 +47,11 @@
                     
                     return {
                         html: `<div class="fc-event-content">
+                               <span class="fc-event-title">${arg.event.extendedProps.user}</span>
+
                             <span class="fc-event-icon">${icon}</span>
                             <span class="fc-event-title">${arg.event.title}</span>
+
                         </div>`
                     };
                 }
