@@ -35,6 +35,9 @@ namespace ToDoList.Areas.Identity.Pages.Account.Manage
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+        /// 
+        public string CurrentUsername { get; set; }
+        
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -55,6 +58,12 @@ namespace ToDoList.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            /// 
+            [Display(Name = "Username")]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
+            [RegularExpression(@"^[a-zA-Z0-9_\.-]+$", ErrorMessage = "Username can only contain letters, numbers, dots, hyphens, and underscores.")]
+            public string Username { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -65,10 +74,11 @@ namespace ToDoList.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
-            Username = userName;
+            CurrentUsername = userName;
 
             Input = new InputModel
             {
+                Username = userName,
                 PhoneNumber = phoneNumber
             };
         }
@@ -97,6 +107,29 @@ namespace ToDoList.Areas.Identity.Pages.Account.Manage
             {
                 await LoadAsync(user);
                 return Page();
+            }
+
+            var currentUsername = await _userManager.GetUserNameAsync(user);
+            if (Input.Username != currentUsername)
+            {
+                var existingUser = await _userManager.FindByNameAsync(Input.Username);
+                if (existingUser != null && existingUser.Id != user.Id)
+                {
+                    ModelState.AddModelError(string.Empty, "This username is already taken.");
+                    await LoadAsync(user);
+                    return Page();
+                }
+
+                var setUsernameResult = await _userManager.SetUserNameAsync(user, Input.Username);
+                if (!setUsernameResult.Succeeded)
+                {
+                    foreach (var error in setUsernameResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    await LoadAsync(user);
+                    return Page();
+                }
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
