@@ -113,6 +113,11 @@ namespace ToDoList.Areas.Identity.Pages.Account.Manage
             }
 
             var email = await _userManager.GetEmailAsync(user);
+            if (string.IsNullOrEmpty(email))
+            {
+                StatusMessage = "Error: No email address found for your account.";
+                return RedirectToPage();
+            }
             if (Input.NewEmail != email)
             {
                 var userId = await _userManager.GetUserIdAsync(user);
