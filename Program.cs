@@ -1,9 +1,11 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ToDoList.Data;
+using ToDoList.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,6 +76,10 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
     .AddDefaultUI();
     
 
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+
 
 builder.Services.AddRazorPages();
 
@@ -111,7 +117,7 @@ using (var scope = app.Services.CreateScope())
             Thread.Sleep(3000); 
         }
     }
-    
+
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
 
@@ -142,6 +148,7 @@ if (adminUser == null)
 }
 
 }
+
 
 
 app.UseHttpsRedirection();
