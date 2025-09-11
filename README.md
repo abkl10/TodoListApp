@@ -60,6 +60,7 @@ MVC Web Application
 - Register a new user account.
 - Manage your personal task list: add, edit, delete, and mark tasks as completed.
 - View your dashboard with recent tasks and task statistics.
+- Administration page with numbers of users, tasks, completed tasks, pending tasks.
 
 RESTful API
 - Obtain a JWT token by authenticating with your user credentials (via API login endpoint).
