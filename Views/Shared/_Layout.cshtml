@@ -59,6 +59,9 @@
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </li>
+                <button id="darkModeToggle" class="btn btn-link">
+    <i class="fas fa-moon"></i> 
+           </button>
             </ul>
             <div class="d-flex align-items-center">
                 @await Html.PartialAsync("_LoginPartial")
