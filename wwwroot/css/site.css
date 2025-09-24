@@ -101,3 +101,51 @@ nav.navbar {
             border-top: 1px solid #edf2f7;
         }
     }
+
+    [data-theme="dark"] .navbar-dark.bg-primary {
+    background-color: var(--bg-header) !important;
+    border-bottom: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .footer {
+    background-color: var(--bg-footer) !important;
+    border-top: 1px solid var(--border-primary);
+    color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    background-color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+[data-theme="dark"] .btn-outline-primary {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+[data-theme="dark"] .btn-outline-primary:hover {
+    background-color: var(--accent-primary);
+    color: var(--text-inverse);
+}
+
+[data-theme="dark"] .alert-success {
+    background-color: rgba(81, 207, 102, 0.2);
+    border-color: var(--success);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .alert-danger {
+    background-color: rgba(255, 107, 107, 0.2);
+    border-color: var(--danger);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .table {
+    color: var(--text-primary);
+    background-color: var(--bg-card);
+}
+
+[data-theme="dark"] .table-hover tbody tr:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
