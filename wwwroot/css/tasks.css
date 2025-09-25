@@ -485,8 +485,9 @@
     }
 }
 
-[data-theme="dark"] {
+[data-theme="dark"] {    
     .task-item {
+        background-color: var(--bg-input);
         border-color: var(--border-primary);
     }
     
