@@ -178,3 +178,94 @@ body {
 [data-theme="dark"] .users-table {
     border: 1px solid var(--border-primary);
 }
+
+[data-theme="dark"] .admin-insights {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .admin-insights h2 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .insight-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .insight-card h3 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .insight-card p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .insight-card i {
+    color: var(--accent-primary);
+}
+
+[data-theme="dark"] .progress-bar {
+    background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .dashboard-container {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .welcome-card {
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    box-shadow: var(--shadow-lg);
+}
+
+[data-theme="dark"] .avatar {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .quick-actions {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .action-btn.secondary {
+    background-color: var(--bg-secondary);
+    color: var(--accent-primary);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .action-btn.secondary:hover {
+    background-color: var(--bg-tertiary);
+    border-color: var(--accent-primary);
+}
+
+[data-theme="dark"] .recent-tasks {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .recent-tasks .task-item {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .task-title.completed {
+    color: var(--text-muted);
+}
+
+[data-theme="dark"] .section-header h2 {
+    color: var(--text-primary);
+}
+
+.admin-insights,
+.insight-card,
+.dashboard-container,
+.welcome-card,
+.quick-actions,
+.recent-tasks,
+.task-item {
+    transition: all 0.3s ease;
+}
