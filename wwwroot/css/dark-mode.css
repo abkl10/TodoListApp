@@ -85,3 +85,96 @@ body {
 .form-label {
     color: var(--text-primary);
 }
+
+[data-theme="dark"] .admin-dashboard {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .dashboard-header h1 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .dashboard-subtitle {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .stat-card {
+    background-color: var(--bg-card);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .stat-content h3 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .stat-content p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .users-table {
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .users-table th {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-bottom-color: var(--border-primary);
+}
+
+[data-theme="dark"] .users-table td {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border-bottom-color: var(--border-primary);
+}
+
+[data-theme="dark"] .users-table tr:hover td {
+    background-color: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .status-badge.confirmed {
+    background-color: rgba(81, 207, 102, 0.2);
+    color: var(--success);
+}
+
+[data-theme="dark"] .status-badge.pending {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: var(--warning);
+}
+
+[data-theme="dark"] .role-badge.admin {
+    background-color: rgba(255, 107, 107, 0.2);
+    color: var(--danger);
+}
+
+[data-theme="dark"] .role-badge.user {
+    background-color: rgba(59, 201, 219, 0.2);
+    color: var(--info);
+}
+
+[data-theme="dark"] .role-select {
+    background-color: var(--bg-input);
+    border-color: var(--border-primary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .role-select:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+}
+
+[data-theme="dark"] .user-email {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .stat-icon {
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .users-table {
+    border: 1px solid var(--border-primary);
+}
