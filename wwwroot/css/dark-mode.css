@@ -295,18 +295,10 @@ body {
     color: var(--accent-primary) !important;
 }
 
-
-
-
-
 [data-theme="dark"] .navbar-nav .show > .nav-link,
 [data-theme="dark"] .navbar-nav .nav-link.active {
     color: var(--accent-primary) !important;
 }
-
-
-
-
 
 @media (max-width: 991.98px) {
     [data-theme="dark"] .navbar-nav {
@@ -332,4 +324,56 @@ body {
 .dropdown-menu,
 .theme-toggle-btn {
     transition: all 0.3s ease;
+}
+
+/* ===== DARK MODE FOR FORM PAGES ===== */
+[data-theme="dark"] .form-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+[data-theme="dark"] .form-container h1 {
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--accent-primary);
+    padding-bottom: 1rem;
+}
+
+[data-theme="dark"] .form-group {
+    margin-bottom: 1.5rem;
+}
+
+[data-theme="dark"] .form-label {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+[data-theme="dark"] .form-control {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .form-control:focus {
+    background-color: var(--bg-input);
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+    box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.1);
+    outline: none;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: var(--text-muted);
 }
