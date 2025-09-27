@@ -439,6 +439,11 @@ body {
     color: var(--accent-primary);
 }
 
+[data-theme="dark"] .fc-header-toolbar {
+    background-color: var(--bg-card);
+}
+
+
 [data-theme="dark"] .btn-export {
     background-color: var(--accent-primary);
     color: var(--text-inverse);
