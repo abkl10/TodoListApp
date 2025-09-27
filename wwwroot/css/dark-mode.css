@@ -260,6 +260,33 @@ body {
     color: var(--text-primary);
 }
 
+[data-theme="dark"] .productivity-tips {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .productivity-tips h2 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .tip-card {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .tip-content h3 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .tip-content p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .tip-icon {
+    color: var(--accent-primary);
+}
+
 .admin-insights,
 .insight-card,
 .dashboard-container,
