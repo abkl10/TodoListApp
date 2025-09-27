@@ -230,6 +230,10 @@ body {
     border: 1px solid var(--border-primary);
 }
 
+[data-theme="dark"] .quick-actions h2{
+    color: white;
+}
+
 [data-theme="dark"] .action-btn.secondary {
     background-color: var(--bg-secondary);
     color: var(--accent-primary);
